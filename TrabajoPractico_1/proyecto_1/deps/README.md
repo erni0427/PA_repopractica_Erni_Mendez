@@ -18,7 +18,7 @@ Este tipo de entorno te permite instalar módulos de python sin afectar otros en
 
 - Abrir la paleta de comandos, __Command Palette__ (`Ctrl+Shift+P`). Buscar y seleccionar el comando **Python: Create Environment**
 
-![image](https://github.com/Grupo-de-Computacion-de-la-FI-UNER/pa-repositorio-practica-inicial/assets/69655502/fc049bfd-75ee-47fb-845f-fec47f9b245b)
+![image](https://github.com/Grupo-de-Computacion-de-la-FI-UNER/pa-repositorio-practica-inicial/assets/69655502/fc049bfd-75ee-47fb-845f-fec47f9b245b)pip
 
 - Una vez seleccionado el comando, se presenta una lista de tipos de entornos: **Venv** o **Conda**
  
