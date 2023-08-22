@@ -25,31 +25,47 @@ print("""
 RUTA="./data/"
 DIRECCION=RUTA + "frases_de_peliculas.txt"
 while True:
-    opcion=int(input("Ingrese su opcion: "))
+    opcion=input("Ingrese su opcion: ")
 
-    if opcion==1:
-        for i in mostrar_lista_peliculas(DIRECCION):
-            print(str(i[0])+")",i[1])
-    elif opcion == 2:
+    lis, pelis = mostrar_lista_peliculas(DIRECCION)
+
+    if opcion=='1':
+        for i, p in enumerate(sorted(pelis)):
+            print(i+1, p)
+    elif opcion == '2':
         num_preguntas = int(input("Ingresa el número de preguntas para la trivia (entre 3 y 10): "))
         if num_preguntas < 3 or num_preguntas > 10:
             print("El número de preguntas debe estar entre 3 y 10.")
         else:
-            trivia = generar_trivia(DIRECCION, num_preguntas)
-            for pregunta in trivia:
-                opciones = [pregunta]
+            trivia = generar_trivia(lis, num_preguntas)
+            for lis in trivia:
+                opciones = pelis
                 while len(opciones) < 3:
-                    opcion = random.choice(DIRECCION)
-                    if opcion != pregunta:
+                    opcion = random.choice(opcion)
+                    if opcion != lis:
                         opciones.append(opcion)
-                mostrar_y_validar_opciones(pregunta, opciones)
-                opciones_seleccionadas.append(pregunta)  
-    elif opcion == 3:
+                mostrar_y_validar_opciones(lis, opciones)
+                opciones_seleccionadas.append(lis) 
+            while True:
+                try:
+                    seleccion = int(input("Selecciona la opción correcta (1/2/3): "))
+                    if seleccion < 1 or seleccion > 3:
+                        print("Por favor, selecciona una opción válida.")
+                    else:
+                        if seleccion == respuesta_correcta + 1:
+                            print("¡Correcto! ¡Felicitaciones!\n")
+                        else:
+                            print(f"Incorrecto. La respuesta correcta era: {respuesta_correcta + 1} - {lista}\n")
+                        break
+                except ValueError:
+                    print("Por favor, introduce un número válido.")
+            
+    elif opcion == '3':
             pass
-    elif opcion == 4:
+    elif opcion == '4':
         opciones_seleccionadas = []
         print("Historial de opciones borrado.")
-    elif opcion == 5:
+    elif opcion == '5':
         print("¡Hasta luego!")
         break
     else:
