@@ -1,14 +1,7 @@
 # Aplicación secundaria
-from modules.modulo1 import mostrar_lista_peliculas
-from modules.modulo1 import generar_trivia
-from modules.modulo1 import mostrar_y_validar_opciones
+from modules.funciones import mostrar_lista_peliculas, trivia, guardar_opciones, mostrar_opciones_seleccionadas, borrar_opciones
+
 import random
-
-
-
-
-    
-opciones_seleccionadas = []
 
 print("""
         #######################################
@@ -24,49 +17,30 @@ print("""
 )
 RUTA="./data/"
 DIRECCION=RUTA + "frases_de_peliculas.txt"
-while True:
-    opcion=input("Ingrese su opcion: ")
+DIRECCION1=RUTA + "registro_de_opciones_seleccionadas.txt"
+lista_opciones=[]
+opcion=int(input("Ingrese una opciones: "))
+guardar_opciones(opcion)
 
-    lis, pelis = mostrar_lista_peliculas(DIRECCION)
-
-    if opcion=='1':
-        for i, p in enumerate(sorted(pelis)):
-            print(i+1, p)
-    elif opcion == '2':
-        num_preguntas = int(input("Ingresa el número de preguntas para la trivia (entre 3 y 10): "))
-        if num_preguntas < 3 or num_preguntas > 10:
-            print("El número de preguntas debe estar entre 3 y 10.")
+while opcion!=5:
+    if opcion == 1:
+        for i in mostrar_lista_peliculas (DIRECCION):
+            print(str(i[0])+")",i[1])
+    elif opcion==2:
+        x=int(input("Elija la cantidad de veces que quiere jugar la trivia, debe ser entre 3 y 10: "))
+        if x >= 3 and x<=10:
+            for i in range (0,x):
+                print(trivia(DIRECCION))
         else:
-            trivia = generar_trivia(lis, num_preguntas)
-            for lis in trivia:
-                opciones = pelis
-                while len(opciones) < 3:
-                    opcion = random.choice(opcion)
-                    if opcion != lis:
-                        opciones.append(opcion)
-                mostrar_y_validar_opciones(lis, opciones)
-                opciones_seleccionadas.append(lis) 
-            while True:
-                try:
-                    seleccion = int(input("Selecciona la opción correcta (1/2/3): "))
-                    if seleccion < 1 or seleccion > 3:
-                        print("Por favor, selecciona una opción válida.")
-                    else:
-                        if seleccion == respuesta_correcta + 1:
-                            print("¡Correcto! ¡Felicitaciones!\n")
-                        else:
-                            print(f"Incorrecto. La respuesta correcta era: {respuesta_correcta + 1} - {lista}\n")
-                        break
-                except ValueError:
-                    print("Por favor, introduce un número válido.")
-            
-    elif opcion == '3':
-            pass
-    elif opcion == '4':
-        opciones_seleccionadas = []
-        print("Historial de opciones borrado.")
-    elif opcion == '5':
-        print("¡Hasta luego!")
-        break
-    else:
-        print("Opción inválida. Por favor, selecciona una opción válida.")
+            print("Debe elegir un valor entre 3 y 10")
+    elif opcion==3:
+        print (mostrar_opciones_seleccionadas (DIRECCION1))
+    elif opcion==4:
+        borrar_opciones (DIRECCION1)
+        print("El historial se eliminó correctamente")
+    elif opcion>5:
+        print("La opción elegida no es correcta, vuelva a intentarlo.")
+    opcion=int (input("Ingrese otra opción: "))
+    guardar_opciones (opcion)
+if opcion==5:
+    print("Gracias por utilizar el programa.")
