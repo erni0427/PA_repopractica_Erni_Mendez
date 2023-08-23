@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TRIVIA DE PELICULAS</title>
+</head>
+<body>
+  <img src="static\trivia.png" alt="">
+
+  <p>Instrucciones: Para poder guardar sus resultados, 
+    primero debe optar por la cantidad de frases que quiere
+    jugar en la trivia de peliculas y luego debe guardar su nombre de usuario </p>
+  <form action="{{url_for('raiz')}} " method="post">
+
+    <label for="fnum">Número de frases:</label><br>
+    <input type="text" id="fnum" name="input_num" value=""><br>
+
+    <label for="lname">Nombre de usuario:</label><br>
+    <input type="text" id="lname" name="input_nombre" value=""><br>
+
+    <input type="submit" value="Iniciar trivia">
+    <input type="submit" value="Ver resultados">
+
+    
+</form>
+</body>
+</html>
