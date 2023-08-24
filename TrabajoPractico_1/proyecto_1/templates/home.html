@@ -4,25 +4,91 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TRIVIA DE PELICULAS</title>
+  <style>
+    /* Personaliza el botón */
+    button {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      color: #fff;
+      background-color: #4CAF50;
+      border: none;
+      border-radius: 5px;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+    }
+
+    /* Personaliza el botón al pasar el mouse por encima */
+    button:hover {
+      background-color: #3e8e41;
+    }
+
+    /* Personaliza el botón al hacer clic */
+    button:active {
+      background-color: #296c2a;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Estilo para el formulario */
+    form {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    /* Estilo para la etiqueta del nombre de usuario */
+    label {
+      display: block;
+      font-size: 0px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    /* Estilo para el campo de entrada de texto */
+    input[type="text"] {
+      padding: 10px;
+      font-size: 20px;
+      border-radius: 5px;
+      border: 2px solid #ccc;
+    }
+
+    /* Estilo para el texto de instrucciones */
+    p {
+      font-size: 24px;
+      line-height: 1.5;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    /* Estilo para la imagen */
+    img {
+      display: block;
+      margin: 10 auto;
+      max-width: 100%;
+      background-color: rgb(255, 201, 100);
+    }
+  </style>
 </head>
 <body>
-  <img src="static\trivia.png" alt="">
 
-  <p>Instrucciones: Para poder guardar sus resultados, 
-    primero debe optar por la cantidad de frases que quiere
-    jugar en la trivia de peliculas y luego debe guardar su nombre de usuario </p>
-  <form action="{{url_for('raiz')}} " method="post">
+  <img src="static\triviatopia.png" alt=""/>
+  <p>Instrucciones: <br />Para poder guardar sus resultados, primero debe optar por la cantidad de frases que quiere jugar en la trivia de peliculas <br />y luego debe guardar su nombre de usuario</p>
+  <form action="{{ url_for('raiz') }}" method="POST">
 
-    <label for="fnum">Número de frases:</label><br>
-    <input type="text" id="fnum" name="input_num" value=""><br>
+    <label for="fnum">"Número de frases:"</label><br>
+    <input type="text" id="fnum" name="input_num" placeholder="Número de frases:"/><br>
 
     <label for="lname">Nombre de usuario:</label><br>
-    <input type="text" id="lname" name="input_nombre" value=""><br>
+    <input type="text" id="lname" name="input_nombre" placeholder="Nombre de usuario::"><br>
 
-    <input type="submit" value="Iniciar trivia">
-    <input type="submit" value="Ver resultados">
-
+    <button type="submit">Iniciar trivia</button>
+  </form>
+  <form action="{{ url_for('resultados_historicos') }}" method="POST">
+    <button type="submit">Ver resultados</button>
+  </form>
     
-</form>
+
 </body>
 </html>

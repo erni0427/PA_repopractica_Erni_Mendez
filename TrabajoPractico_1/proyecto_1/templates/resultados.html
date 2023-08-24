@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Trivia Ronda </title>
+    <style>
+      body {
+        font-family: sans-serif;
+      }
+
+      .button {
+        display: inline-block;
+        padding: 10px 20px;
+        margin: 20px auto;
+        background-color: #007bff;
+        color: white;
+        border-radius: 25px;
+        border: none;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      .button:hover {
+        background-color: #0062cc;
+      }
+    </style>
+  </head>
+  <body style="text-align: center;">
+    {%if correcta==respuesta:%}
+    <div>
+      <h2>Tu respuesta es correcta</h2>
+    </div>
+    {% else: %}
+    <div>
+      <h2>
+        Tu respuesta es incorrecta, la respuesta correcta era "{{correcta}}".
+      </h2>
+    </div>
+    {% endif %}
+    <br />
+    <h3>Puntaje Actual {{acertadas}}/{{round}}</h3>
+    <div>
+      <form action="/trivia" method="POST">
+        <p>
+          {%if round!=5 :%}
+          <button class="button" type="submit">Siguiente Pregunta</button>
+          {%else:%}
+          <button class="button" type="submit">Finalizar Trivia</button>
+          {%endif%}
+        </p>
+        <input type="hidden" name="sesion" value="{{sesion}}" />
+      </form>
+    </div>
+  </body>
+</html>
