@@ -2,15 +2,74 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>Trivia Ronda {{round}}</title>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <style>
+        /*Estilo de los botones*/
+        input[type=submit] {
+          background-color: #4CAF50;
+          color: white;
+          border: none;
+          border-radius: 15px;
+          padding: 10px 20px;
+          text-decoration: none;
+          margin: 20px auto;
+          cursor: pointer;
+          font-family: 'Roboto', sans-serif;
+          font-size: 16px;
+          font-weight: 500;
+          transition: background-color 0.5s ease;
+        }
+        /*Cuando se pasa el cursor sobre el botón*/
+        input[type=submit]:hover {
+          background-color: #3e8e41;
+        }
+        /*Centrar el contenido*/
+        body {
+          display: flex;
+          justify-content: center;
+          align-items: flex-start;
+        }
+        form {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <form action="{{ url_for('triviaans') }}" method="POST">
+        <p>
+            {{frase}}<br>
+            <br>
+            <select name="respuesta">
+                <br><br>
+                {% for peli in peliculas: %}
+                <option> {{peli}}</option><br>
+                {% endfor %}
+            </select>
+            <br>
+            <input type="submit" value="Enviar Respuesta">
+        </p><br>
+        <input type="hidden" name="correcta" value="{{correcta}}"/>
+        <input type="hidden" name="sesion" value="{{sesion}}"/>
+    </form>
+</body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 <body>
-    <h1>BUENOS DIAS USUARIO: {{nombre}}</h1>
+    <h1>¡¡¡BUENOS DIAS {{nombre}}!!!</h1>
     <h1>{{numero_frase}}</h1>
     <h1>{{frase}}</h1>
     <h1>{{correcta}}</h1>
     <h1>{{peliculas}}</h1>
     <!-- armar un for con buttoms -->
 </body>
-</html>
+</html> -->

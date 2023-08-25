@@ -76,12 +76,16 @@
   <img src="static\triviatopia.png" alt=""/>
   <p>Instrucciones: <br />Para poder guardar sus resultados, primero debe optar por la cantidad de frases que quiere jugar en la trivia de peliculas <br />y luego debe guardar su nombre de usuario</p>
   <form action="{{ url_for('raiz') }}" method="POST">
+    <label for="Nfrases">Numero de frases:</label>
+    <input type="text" name="input_num" placeholder="Ingrese el numero de frases"/>
+    <label for="usuario">Nombre de usuario:</label>
+    <input type="text" name="usuario" placeholder="Ingrese un usuario"/><br>
 
-    <label for="fnum">"Número de frases:"</label><br>
+    <!-- <label for="fnum">"Número de frases:"</label><br>
     <input type="text" id="fnum" name="input_num" placeholder="Número de frases:"/><br>
 
     <label for="lname">Nombre de usuario:</label><br>
-    <input type="text" id="lname" name="input_nombre" placeholder="Nombre de usuario::"><br>
+    <input type="text" id="lname" name="input_nombre" placeholder="Nombre de usuario:"><br> -->
 
     <button type="submit">Iniciar trivia</button>
   </form>
