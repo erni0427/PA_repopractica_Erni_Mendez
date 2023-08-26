@@ -42,7 +42,7 @@
     <div>
       <form action="/trivia" method="POST">
         <p>
-          {%if round!=5 :%}
+          {%if round!=numero_frase :%}
           <button class="button" type="submit">Siguiente Pregunta</button>
           {%else:%}
           <button class="button" type="submit">Finalizar Trivia</button>

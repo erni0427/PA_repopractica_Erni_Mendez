@@ -19,29 +19,36 @@ def raiz():
     if request.method == 'POST':
         numero_frase = request.form['input_num']
         usuario = request.form['usuario']
-        return redirect( url_for('jugar',usuario=usuario) )
+        return redirect( url_for('jugar',usuario=usuario, numero_frase=numero_frase) )
     return render_template("home.html")
 
 @app.route('/trivia', methods=["GET", "POST"])
 def jugar():
-    #if request.method == 'POST':
-        sesion=json.loads(request.form.get("sesion"))
-        lista=trivia(frases_y_pelis)
-        sesion["round"] +=1
-        if sesion["round"] <= numero_frase:
-            return render_template('trivia.html', usuario=usuario, frase=lista[0], correcta=lista[1],peliculas=lista[2] ,**sesion,sesion= json.dumps(sesion))     
-        else:
-            return render_template("home.html")     
+    sesion = {
+        "round": int(request.form.get("round")) if request.form.get("round") is not None else 0,
+        "acertadas": int(request.form.get("acertadas")) if request.form.get("acertadas") is not None else 0,
+        # Otros datos de la sesión
+    }
+    lista=trivia(frases_y_pelis)
+    sesion["round"] +=1
+    if sesion["round"] <= int(numero_frase):
+        return render_template('trivia.html', usuario=usuario, frase=lista[0], correcta=lista[1],peliculas=lista[2] ,sesion=sesion)     
+    else:
+        return render_template("home.html")     
 
 
 @app.route('/triviaans', methods=['POST'])
 def triviaans():
-    sesion=json.loads(request.form.get("sesion"))
-    correcta=request.form.get("correcta")
+    sesion = {
+        "round": int(request.form.get("round")) if request.form.get("round") is not None else 0,
+        "acertadas": int(request.form.get("acertadas")) if request.form.get("acertadas") is not None else 0,
+        # Otros datos de la sesión
+    }
+    correcta = request.form.get("correcta")
     respuesta = request.form.get("respuesta")
-    if(correcta==respuesta):
+    if correcta==respuesta:
         sesion["acertadas"]+=1
-    if(sesion["round"]==numero_frase):
+    if sesion["round"]==numero_frase:
         try:
             puntajes = open("data/puntajes.txt", "a")
         except:
@@ -53,27 +60,24 @@ def triviaans():
         puntajes.write(renglon)
         puntajes.close()
         #escribir archivo con datos de la sesion,formato usuario counter/round fecha inicio fecha final
-        pass
-    return render_template("triviaans.html",respuesta=respuesta,correcta=correcta,**sesion,sesion= json.dumps(sesion))
+        
+    return render_template("triviaans.html",respuesta=respuesta,correcta=correcta, sesion=sesion)
 
 @app.route('/triviainit', methods=['POST'])
 def triviainit():
     usuario = request.form.get("nombre")
     fechaInicio= fechaHora()
-    counter=0
-    round = 1
+    #round = 1
     sesion = {
             "usuario": usuario,
             "fechaInicio": fechaInicio,
-            "acertadas": counter,
-            "round": round,
+            "acertadas": "",
+            "round": "", 
             "fechaFinal": "",
         }
     frase, peli, triviapeli = trivia(frases_y_pelis)
-    return render_template('trivia.html', frase=frase, correcta=peli, peliculas=triviapeli,**sesion,sesion= json.dumps(sesion))     
+    return render_template('trivia.html', frase=frase, correcta=peli, peliculas=triviapeli, sesion=sesion)     
 #**sesion pasa todas las variables del diccionario por separado hechas string
-#json.dumps convierte al diccionario en una string
-
 @app.route('/historicos', methods=["GET", "POST"])
 def resultados_historicos():
     return render_template('historicos.html')
