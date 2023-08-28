@@ -1,19 +1,25 @@
 from flask import Flask, render_template, request, redirect, url_for
 app = Flask("server")
-from modules.funciones import mostrar_lista_peliculas, trivia, guardar_opciones, mostrar_opciones_seleccionadas, borrar_opciones
+from modules.funciones import  trivia
 from modules.funcionesweb import fechaHora
-import json
 import sys
 
 RUTA="./data/"
 DIRECCION=RUTA + "frases_de_peliculas.txt"
 with open(DIRECCION,"r",encoding="utf-8") as archi: # utf-8 reconoce caracteres especiales en la Lista
         lista1=archi.readlines()
-        frases_y_pelis = [(linea.strip().split(';')[0], linea.strip().split(';')[1]) for linea in lista1]
+        lista_sin_repe=set(lista1)
+        frases_y_pelis = [(linea.strip().split(';')[0], linea.strip().split(';')[1]) for linea in lista_sin_repe]
+
 counter=0
+numero_frase=0
 
 @app.route("/", methods=["GET", "POST"])
 def raiz():
+    """Esta función maneja la ruta de la página de inicio ("/"). Cuando se realiza una solicitud GET, muestra la plantilla "home.html". 
+    Si se recibe una solicitud POST, toma los datos del formulario (el número de frases y el nombre de usuario) y redirige a la 
+    función jugar() con los parámetros proporcionados. """
+
     global numero_frase
     global usuario
     if request.method == 'POST':
@@ -24,6 +30,10 @@ def raiz():
 
 @app.route('/trivia', methods=["GET", "POST"])
 def jugar():
+    """Esta función maneja la ruta "/trivia". Recibe una solicitud GET o POST. Si es una solicitud GET, inicializa una sesión de juego
+      y muestra una pregunta de trivia. Si es una solicitud POST, actualiza la sesión de juego con los datos proporcionados por el 
+      formulario y muestra la siguiente pregunta de trivia. Cuando se ha completado el número especificado de rondas, redirige 
+      de nuevo a la página de inicio. """
     sesion = {
         "round": int(request.form.get("round")) if request.form.get("round") is not None else 0,
         "acertadas": int(request.form.get("acertadas")) if request.form.get("acertadas") is not None else 0,
@@ -39,11 +49,16 @@ def jugar():
 
 @app.route('/triviaans', methods=['POST'])
 def triviaans():
+    """Maneja la ruta "/triviaans". Recibe datos de respuesta del formulario, compara la respuesta proporcionada con la respuesta
+      correcta y actualiza la puntuación y la ronda en la sesión. Luego, muestra una página que indica si la respuesta fue correcta
+     o incorrecta. """
     sesion = {
         "round": int(request.form.get("round")) if request.form.get("round") is not None else 0,
         "acertadas": int(request.form.get("acertadas")) if request.form.get("acertadas") is not None else 0,
         # Otros datos de la sesión
     }
+    round=sesion["round"]
+    acertadas=sesion["acertadas"]
     correcta = request.form.get("correcta")
     respuesta = request.form.get("respuesta")
     if correcta==respuesta:
@@ -61,30 +76,36 @@ def triviaans():
         puntajes.close()
         #escribir archivo con datos de la sesion,formato usuario counter/round fecha inicio fecha final
         
-    return render_template("triviaans.html",respuesta=respuesta,correcta=correcta, sesion=sesion)
+    return render_template("triviaans.html",respuesta=respuesta,correcta=correcta, sesion=sesion,round=round,acertadas=acertadas)   
 
-@app.route('/triviainit', methods=['POST'])
-def triviainit():
-    usuario = request.form.get("nombre")
-    fechaInicio= fechaHora()
-    #round = 1
-    sesion = {
-            "usuario": usuario,
-            "fechaInicio": fechaInicio,
-            "acertadas": "",
-            "round": "", 
-            "fechaFinal": "",
-        }
-    frase, peli, triviapeli = trivia(frases_y_pelis)
-    return render_template('trivia.html', frase=frase, correcta=peli, peliculas=triviapeli, sesion=sesion)     
-#**sesion pasa todas las variables del diccionario por separado hechas string
-@app.route('/historicos', methods=["GET", "POST"])
-def resultados_historicos():
-    return render_template('historicos.html')
+@app.route('/historicos', methods=['POST'])
+def result():
+    """Maneja la ruta "/historicos". Esta función se utiliza para mostrar los puntajes históricos de los jugadores. Lee el 
+    archivo "puntajes.txt", parsea los datos de las sesiones anteriores y los almacena en una lista de diccionarios. Luego, 
+    muestra esta información en la plantilla "historicos.html". """
 
-@app.route('/resultados', methods=["GET", "POST"])
-def resultados():
-    return render_template('resultados.html')
+    listaPuntajes=[]
+    try:
+        puntajes = open("data/puntajes.txt", "a")
+        puntajes.close()
+    except:
+        puntajes = open("data/puntajes.txt", "a")
+        puntajes.close()
+        sys.exit() #función que se utiliza para terminar el programa de manera abrupta.
+
+    with open("data/puntajes.txt", "r") as archi:
+        for linea in archi:
+            listaPuntaje = linea.rstrip().split(',')
+            puntaje = {
+                "usuario": listaPuntaje[0],
+                "acertadas": listaPuntaje[1],
+                "fechaInicio": listaPuntaje[2],
+                "fechaFinal": listaPuntaje[3], 
+            }
+            listaPuntajes. append(puntaje)
+    if len(listaPuntajes) == 0:
+        return render_template("historicos.html", esta_vacia=True)
+    return render_template("historicos.html", esta_vacia=False, listaPuntajes=listaPuntajes )
 
 
 if __name__=="__main__":

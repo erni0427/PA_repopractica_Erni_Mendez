@@ -2,10 +2,55 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Lista de Jugadores</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+        }
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        form {
+            margin-top: 20px;
+        }
+        input[type="submit"] {
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        input[type="submit"]:hover {
+            background-color: #0062cc;
+        }
+    </style>
 </head>
 <body>
-    
+    <h1>Lista de Jugadores</h1>
+   {%if esta_vacia:%}
+        <h3>Nadie ha jugado todavía</h3>
+    {% else: %}
+        <ul>
+            {% for puntaje in listaPuntajes: %}
+            <li>
+                Usuario: {{puntaje.usuario}} , Puntaje: {{puntaje.acertadas}} , Fecha de Inicio: {{puntaje.fechaInicio}} , Fecha Final: {{puntaje.fechaFinal}}
+            </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <form action="{{ url_for('raiz') }}" method="POST">
+        <input type="submit" value="Volver a inicio" />
+    </form>
 </body>
 </html>
