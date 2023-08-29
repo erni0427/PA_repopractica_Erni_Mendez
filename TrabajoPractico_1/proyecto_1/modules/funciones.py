@@ -4,7 +4,7 @@ import datetime
 
 
 def mostrar_lista_peliculas(archivo_peliculas):
-    """Función que lee el archivo con las frases de las peliculas y las muestra en una lista de tuplas
+    """Función que lee el archivo con las frases de las peliculas y retorna una lista de tuplas
     """
     lista=[]
     lista_sin_repe=[]
@@ -27,12 +27,15 @@ def trivia (lista_frases_pelis):
     return(lista)
 
 def guardar_opciones (opciones):
+    """Funcion que guarda las opciones seleccionadas por el usuario con el formato %d/%m/%y %H:%M"""
     current_datetime = datetime.datetime.now()
     formatted_datetime = current_datetime.strftime("%d/%m/%y %H:%M")
     with open ("./data/registro_de_opciones_seleccionadas.txt","a") as archi:
         archi.write(f"Opciones: {opciones}, Fecha y hora {formatted_datetime}\n")
 
 def mostrar_opciones_seleccionadas(archivo):
+    """Muestra la secuencia de opciones seleccionadas previamente, sin contar las opciones que 
+    elige cuando está jugando a la trivia de películas"""
     try:
         with open (archivo, "r") as archi:
             linea=archi.read()
@@ -42,5 +45,6 @@ def mostrar_opciones_seleccionadas(archivo):
     return(linea)
 
 def borrar_opciones (archivo):
+    """Elimina el contenido del historial de opciones del registro """
     with open (archivo, "w") as archi:
         archi.write("")

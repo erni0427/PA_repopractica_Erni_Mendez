@@ -42,7 +42,7 @@
     <div>
       <form action="{{ url_for('jugar') }}" method="POST">
         <p>
-          {%if round!= numero_frase %}
+          {%if round != numero_frase %}
           <button class="button" type="submit">Siguiente Pregunta</button>
           {%else:%}
           <button class="button" type="submit">Finalizar Trivia</button>

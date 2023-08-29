@@ -11,8 +11,9 @@ with open(DIRECCION,"r",encoding="utf-8") as archi: # utf-8 reconoce caracteres 
         lista_sin_repe=set(lista1)
         frases_y_pelis = [(linea.strip().split(';')[0], linea.strip().split(';')[1]) for linea in lista_sin_repe]
 
-counter=0
+
 numero_frase=0
+
 
 @app.route("/", methods=["GET", "POST"])
 def raiz():
@@ -20,8 +21,7 @@ def raiz():
     Si se recibe una solicitud POST, toma los datos del formulario (el número de frases y el nombre de usuario) y redirige a la 
     función jugar() con los parámetros proporcionados. """
 
-    global numero_frase
-    global usuario
+    global usuario, numero_frase
     if request.method == 'POST':
         numero_frase = request.form['input_num']
         usuario = request.form['usuario']
@@ -35,13 +35,15 @@ def jugar():
       formulario y muestra la siguiente pregunta de trivia. Cuando se ha completado el número especificado de rondas, redirige 
       de nuevo a la página de inicio. """
     sesion = {
-        "round": int(request.form.get("round")) if request.form.get("round") is not None else 0,
-        "acertadas": int(request.form.get("acertadas")) if request.form.get("acertadas") is not None else 0,
-        # Otros datos de la sesión
+        "round": int(request.form.get("round")) if request.form.get("round") is not None else 0, 
+        #representa el número de la ronda actual.
+        "acertadas": int(request.form.get("acertadas")) if request.form.get("acertadas") is not None else 0, 
+        #representa la cantidad de respuestas acertadas hasta el momento en la sesión.
     }
     lista=trivia(frases_y_pelis)
-    sesion["round"] +=1
+    
     if sesion["round"] <= int(numero_frase):
+        sesion["round"] +=1
         return render_template('trivia.html', usuario=usuario, frase=lista[0], correcta=lista[1],peliculas=lista[2] ,sesion=sesion)     
     else:
         return render_template("home.html")     
@@ -63,7 +65,7 @@ def triviaans():
     respuesta = request.form.get("respuesta")
     if correcta==respuesta:
         sesion["acertadas"]+=1
-    if sesion["round"]==numero_frase:
+    if sesion["round"]==int(numero_frase):
         try:
             puntajes = open("data/puntajes.txt", "a")
         except:
@@ -75,7 +77,6 @@ def triviaans():
         puntajes.write(renglon)
         puntajes.close()
         #escribir archivo con datos de la sesion,formato usuario counter/round fecha inicio fecha final
-        
     return render_template("triviaans.html",respuesta=respuesta,correcta=correcta, sesion=sesion,round=round,acertadas=acertadas)   
 
 @app.route('/historicos', methods=['POST'])
@@ -109,4 +110,4 @@ def result():
 
 
 if __name__=="__main__":
-    app.run(debug=True, host='0.0.0.0')
+    app.run(debug=True)
