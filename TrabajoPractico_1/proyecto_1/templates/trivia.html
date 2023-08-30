@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Trivia Ronda {{round}}</title>
+    <title>Trivia Ronda {{contador_r}}</title>
     <style>
         /*Estilo de los botones*/
         input[type=submit] {
@@ -51,7 +51,8 @@
             <input type="submit" value="Enviar Respuesta">
         </p><br>
         <input type="hidden" name="correcta" value="{{correcta}}"/>
-        <input type="hidden" name="sesion" value="{{sesion}}"/>
+        <input type="hidden" name="contador_a" value="{{contador_a}}"/>
+        <input type="hidden" name="contador_r" value="{{contador_r}}"/>
     </form>
 </body>
 </html>

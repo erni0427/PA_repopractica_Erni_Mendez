@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Trivia Ronda {{round}}</title>
+    <title>Trivia Ronda {{contador_r}}</title>
     <style>
       body {
         font-family: sans-serif;
@@ -38,17 +38,18 @@
     </div>
     {% endif %}
     <br />
-    <h3>Puntaje Actual {{acertadas}}/{{round}}</h3>
+    <h3>Puntaje Actual {{contador_a}}/{{contador_r}}</h3>
     <div>
       <form action="{{ url_for('jugar') }}" method="POST">
         <p>
-          {%if round != numero_frase %}
+          {%if contador_r != numero_frase %}
           <button class="button" type="submit">Siguiente Pregunta</button>
-          {%else:%}
+          {%elif contador_r == numero_frase  %}
           <button class="button" type="submit">Finalizar Trivia</button>
           {%endif%}
         </p>
-        <input type="hidden" name="sesion" value="{{sesion}}" />
+        <input type="hidden" name="contador_r" value="{{contador_r}}" />
+        <input type="hidden" name="contador_a" value="{{contador_a}}" />
       </form>
     </div>
   </body>

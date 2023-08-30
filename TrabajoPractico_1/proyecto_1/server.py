@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-app = Flask("server")
+app = Flask(__name__)
 from modules.funciones import  trivia
 from modules.funcionesweb import fechaHora
 import sys
@@ -11,79 +11,71 @@ with open(DIRECCION,"r",encoding="utf-8") as archi: # utf-8 reconoce caracteres 
         lista_sin_repe=set(lista1)
         frases_y_pelis = [(linea.strip().split(';')[0], linea.strip().split(';')[1]) for linea in lista_sin_repe]
 
-
-numero_frase=0
-
-
 @app.route("/", methods=["GET", "POST"])
 def raiz():
     """Esta función maneja la ruta de la página de inicio ("/"). Cuando se realiza una solicitud GET, muestra la plantilla "home.html". 
     Si se recibe una solicitud POST, toma los datos del formulario (el número de frases y el nombre de usuario) y redirige a la 
     función jugar() con los parámetros proporcionados. """
 
-    global usuario, numero_frase
+    global usuario, numero_frase,fechaInicio
+    fechaInicio=fechaHora
     if request.method == 'POST':
-        numero_frase = request.form['input_num']
+        numero_frase = int(request.form['input_num'])
         usuario = request.form['usuario']
-        return redirect( url_for('jugar',usuario=usuario, numero_frase=numero_frase) )
+        return redirect( url_for('jugar',usuario=usuario, numero_frase=numero_frase, fechaInicio=fechaInicio) )
     return render_template("home.html")
 
+contador_r=0
+contador_a=0
 @app.route('/trivia', methods=["GET", "POST"])
 def jugar():
     """Esta función maneja la ruta "/trivia". Recibe una solicitud GET o POST. Si es una solicitud GET, inicializa una sesión de juego
       y muestra una pregunta de trivia. Si es una solicitud POST, actualiza la sesión de juego con los datos proporcionados por el 
       formulario y muestra la siguiente pregunta de trivia. Cuando se ha completado el número especificado de rondas, redirige 
       de nuevo a la página de inicio. """
-    sesion = {
-        "round": int(request.form.get("round")) if request.form.get("round") is not None else 0, 
-        #representa el número de la ronda actual.
-        "acertadas": int(request.form.get("acertadas")) if request.form.get("acertadas") is not None else 0, 
-        #representa la cantidad de respuestas acertadas hasta el momento en la sesión.
-    }
+    global usuario, numero_frase,fechaInicio,contador_a,contador_r
     lista=trivia(frases_y_pelis)
-    
-    if sesion["round"] <= int(numero_frase):
-        sesion["round"] +=1
-        return render_template('trivia.html', usuario=usuario, frase=lista[0], correcta=lista[1],peliculas=lista[2] ,sesion=sesion)     
-    else:
-        return render_template("home.html")     
+    if contador_r < int(numero_frase):
+        contador_r +=1
+        return render_template('trivia.html', usuario=usuario, frase=lista[0], correcta=lista[1],peliculas=lista[2] 
+                               , numero_frase=numero_frase,contador_r=contador_r,contador_a=contador_a)     
+    else: 
+        return redirect(url_for('raiz'))
 
+contador_r=0
+contador_a=0
 
 @app.route('/triviaans', methods=['POST'])
 def triviaans():
     """Maneja la ruta "/triviaans". Recibe datos de respuesta del formulario, compara la respuesta proporcionada con la respuesta
       correcta y actualiza la puntuación y la ronda en la sesión. Luego, muestra una página que indica si la respuesta fue correcta
      o incorrecta. """
-    sesion = {
-        "round": int(request.form.get("round")) if request.form.get("round") is not None else 0,
-        "acertadas": int(request.form.get("acertadas")) if request.form.get("acertadas") is not None else 0,
-        # Otros datos de la sesión
-    }
-    round=sesion["round"]
-    acertadas=sesion["acertadas"]
+    global usuario, numero_frase,fechaInicio,contador_r,contador_a
     correcta = request.form.get("correcta")
     respuesta = request.form.get("respuesta")
     if correcta==respuesta:
-        sesion["acertadas"]+=1
-    if sesion["round"]==int(numero_frase):
+        contador_a+=1
+
+    if contador_r==int(numero_frase):
         try:
             puntajes = open("data/puntajes.txt", "a")
+            fechaFinal= fechaHora()
+            renglon= usuario + "," + str(contador_a)+ "/"+str(numero_frase)+","+str(fechaInicio)+","+ str(fechaFinal)+ "\n"
+            puntajes.write(renglon)
+            puntajes.close()
         except:
             print("el archivo ''puntajes.txt'' no existe")
             sys.exit()
-        fechaFinal= fechaHora()
-        sesion["fechaFinal"]=fechaFinal
-        renglon= sesion["nombre"] + "," + str(sesion["acertadas"])+ "/"+numero_frase+","+sesion["fechaInicio"]+","+ sesion ["fechaFinal"]+ "\n"
-        puntajes.write(renglon)
-        puntajes.close()
+        
         #escribir archivo con datos de la sesion,formato usuario counter/round fecha inicio fecha final
-    return render_template("triviaans.html",respuesta=respuesta,correcta=correcta, sesion=sesion,round=round,acertadas=acertadas)   
+    return render_template("triviaans.html",respuesta=respuesta,correcta=correcta,numero_frase=numero_frase,contador_r=contador_r,contador_a=contador_a)    
 
 @app.route('/historicos', methods=['POST'])
 def result():
     """Maneja la ruta "/historicos". Esta función se utiliza para mostrar los puntajes históricos de los jugadores. Lee el 
     archivo "puntajes.txt", parsea los datos de las sesiones anteriores y los almacena en una lista de diccionarios. Luego, 
     muestra esta información en la plantilla "historicos.html". """
+    global usuario, numero_frase,fechaInicio,contador_a,contador_r
 
     listaPuntajes=[]
     try:
@@ -100,8 +92,8 @@ def result():
             puntaje = {
                 "usuario": listaPuntaje[0],
                 "acertadas": listaPuntaje[1],
-                "fechaInicio": listaPuntaje[2],
-                "fechaFinal": listaPuntaje[3], 
+  
+                "fechaFinal": listaPuntaje[2], 
             }
             listaPuntajes. append(puntaje)
     if len(listaPuntajes) == 0:
