@@ -17,12 +17,11 @@ def raiz():
     Si se recibe una solicitud POST, toma los datos del formulario (el número de frases y el nombre de usuario) y redirige a la 
     función jugar() con los parámetros proporcionados. """
 
-    global usuario, numero_frase,fechaInicio
-    fechaInicio=fechaHora
+    global usuario, numero_frase
     if request.method == 'POST':
         numero_frase = int(request.form['input_num'])
         usuario = request.form['usuario']
-        return redirect( url_for('jugar',usuario=usuario, numero_frase=numero_frase, fechaInicio=fechaInicio) )
+        return redirect( url_for('jugar',usuario=usuario, numero_frase=numero_frase) )
     return render_template("home.html")
 
 contador_r=0
@@ -33,7 +32,7 @@ def jugar():
       y muestra una pregunta de trivia. Si es una solicitud POST, actualiza la sesión de juego con los datos proporcionados por el 
       formulario y muestra la siguiente pregunta de trivia. Cuando se ha completado el número especificado de rondas, redirige 
       de nuevo a la página de inicio. """
-    global usuario, numero_frase,fechaInicio,contador_a,contador_r
+    global usuario, numero_frase,contador_a,contador_r
     lista=trivia(frases_y_pelis)
     if contador_r < int(numero_frase):
         contador_r +=1
@@ -50,7 +49,7 @@ def triviaans():
     """Maneja la ruta "/triviaans". Recibe datos de respuesta del formulario, compara la respuesta proporcionada con la respuesta
       correcta y actualiza la puntuación y la ronda en la sesión. Luego, muestra una página que indica si la respuesta fue correcta
      o incorrecta. """
-    global usuario, numero_frase,fechaInicio,contador_r,contador_a
+    global usuario, numero_frase,contador_r,contador_a
     correcta = request.form.get("correcta")
     respuesta = request.form.get("respuesta")
     if correcta==respuesta:
@@ -60,7 +59,7 @@ def triviaans():
         try:
             puntajes = open("data/puntajes.txt", "a")
             fechaFinal= fechaHora()
-            renglon= usuario + "," + str(contador_a)+ "/"+str(numero_frase)+","+str(fechaInicio)+","+ str(fechaFinal)+ "\n"
+            renglon= usuario + "," + str(contador_a)+ "/"+str(numero_frase)+","+ str(fechaFinal)+ "\n"
             puntajes.write(renglon)
             puntajes.close()
         except:
@@ -75,7 +74,7 @@ def result():
     """Maneja la ruta "/historicos". Esta función se utiliza para mostrar los puntajes históricos de los jugadores. Lee el 
     archivo "puntajes.txt", parsea los datos de las sesiones anteriores y los almacena en una lista de diccionarios. Luego, 
     muestra esta información en la plantilla "historicos.html". """
-    global usuario, numero_frase,fechaInicio,contador_a,contador_r
+    global usuario, numero_frase,contador_a,contador_r
 
     listaPuntajes=[]
     try:
@@ -92,7 +91,6 @@ def result():
             puntaje = {
                 "usuario": listaPuntaje[0],
                 "acertadas": listaPuntaje[1],
-  
                 "fechaFinal": listaPuntaje[2], 
             }
             listaPuntajes. append(puntaje)
