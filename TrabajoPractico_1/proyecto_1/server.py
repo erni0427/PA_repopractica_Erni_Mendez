@@ -88,12 +88,16 @@ def result():
     with open("data/puntajes.txt", "r") as archi:
         for linea in archi:
             listaPuntaje = linea.rstrip().split(',')
-            puntaje = {
-                "usuario": listaPuntaje[0],
-                "acertadas": listaPuntaje[1],
-                "fechaFinal": listaPuntaje[2], 
-            }
-            listaPuntajes. append(puntaje)
+            if len(listaPuntaje) >= 3:
+                puntaje = {
+                    "usuario": listaPuntaje[0],
+                    "acertadas": listaPuntaje[1],
+                    "fechaFinal": listaPuntaje[2], 
+                }
+                listaPuntajes. append(puntaje)
+            else:
+                print(f"Error: línea incorrecta en el archivo: {linea}")
+
     if len(listaPuntajes) == 0:
         return render_template("historicos.html", esta_vacia=True)
     return render_template("historicos.html", esta_vacia=False, listaPuntajes=listaPuntajes )
