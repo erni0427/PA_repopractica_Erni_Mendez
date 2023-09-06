@@ -18,7 +18,8 @@ def raiz():
     función jugar() con los parámetros proporcionados. """
 
     global usuario, numero_frase
-    if request.method == 'POST':
+    if 'input_num' in request.form:
+        """if request.method == 'POST':"""
         numero_frase = int(request.form['input_num'])
         usuario = request.form['usuario']
         return redirect( url_for('jugar',usuario=usuario, numero_frase=numero_frase) )
