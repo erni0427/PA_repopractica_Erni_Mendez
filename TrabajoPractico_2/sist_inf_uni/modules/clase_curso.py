@@ -1,22 +1,17 @@
 class Curso:
 
-    def __init__(self, nombre):
+    def __init__(self, nombre, profesor_a_cargo):
         self.nombre=nombre
-        self.catedra=[]
+        self.profesor_a_cargo=None
         self.estudiantes=[]
     
     def agregar_alumno(self, alumno):
         self.estudiantes.append(alumno)
-        alumno.cursos_inscriptos_alumnos.append(self)
+        alumno.cursos_inscripto_alumno.append(self)
     
-    def agregar_profesor(self, profesor):
-        self.catedra.append(profesor)
-        profesor.cursos_dictados.append(self)
-
-
-    def mostrar_catedra(self):
-        for i in range(len(self.catedra)):
-            print(self.catedra)
+    def agregar_profesor(self, profesor_a_cargo):
+        profesor_a_cargo.cursos_dictados.append(self)
+ #Para cada curso que dicta un profesor, me pregunto si es el que estoy trabajando actualmente y si es asi lo asigno como profesor a cargo
 
     def mostrar_estudiantes(self):
         for i in range(len(self.estudiantes)):

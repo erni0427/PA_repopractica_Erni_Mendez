@@ -15,7 +15,7 @@ class Persona:
 class Alumno(Persona):
     def __init__(self, DNI, nombre, correo):
         super().__init__(DNI, nombre, correo)
-        self.cursos_inscriptos_alumnos=[]
+        self.cursos_inscripto_alumno=[]
 
 class Profesor(Persona):
     
