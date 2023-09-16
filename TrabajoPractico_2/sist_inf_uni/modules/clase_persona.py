@@ -1,30 +1,80 @@
 class Persona:
-    def __init__(self, DNI, nombre, correo):
-        self.DNI= DNI
-        self.nombre= nombre
-        self.correo= correo
+    def __init__(self, DNI, nombre_y_apellido, correo):
+        self.__DNI= DNI
+        self.__nombre_y_apellido= nombre_y_apellido
+        self.__correo= correo
 
-    def mostrar_datos(self):
-        print(self.nombre + " - " + self.DNI + " - " + self.correo)
+    @property
+    def nombre_y_apellido(self):
+        return(self.__nombre_y_apellido)
+    
+    @property
+    def DNI(self):
+        return(self.__DNI)
 
-    def mostrar_cursos(self):
-        for i in self.cursos:
-            print(i.nombre)
+    @property
+    def correo(self):
+        return(self.__correo)
+
+
+    def __str__(self):
+        salida=self.__nombre_y_apellido
+        return (salida) #muestra solo objeto con sus atributos
+    
+    def __repr__(self):
+        salida=self.__nombre_y_apellido
+        return (salida) #sirve para mostrar objetos dentro de una lista
     
 
 class Alumno(Persona):
     def __init__(self, DNI, nombre, correo):
         super().__init__(DNI, nombre, correo)
-        self.cursos_inscripto_alumno=[]
+        self.__cursos_inscriptos=[]
+
+    @property
+    def cursos_inscriptos(self):
+        return(self.__cursos_inscriptos)
+    
+    def agregar_cursos_inscriptos(self,p_curso):
+        self.__cursos_inscriptos.append(p_curso)
+
+        
 
 class Profesor(Persona):
     
-    def __init__(self, DNI, nombre, correo, es_jefe, dpto):
+    def __init__(self, DNI, nombre, correo):
         super().__init__(DNI, nombre, correo)
-        self.es_jefe = es_jefe
-        self.dptos=[dpto]
-        self.cursos_dictados=[]
+        self.__es_jefe = False
+        self.__dptos=[]
+        self.__cursos_dictados=[]
+    
+    @property
+    def es_jefe(self):
+        return(self.__es_jefe)
+   
+    @es_jefe.setter
+    def es_jefe(self,p_valor):
+        self.__es_jefe=p_valor
+
+    @property
+    def dptos(self):
+        return(self.__dptos)   
+
+    @property
+    def cursos_dictados(self):
+        return(self.__cursos_dictados) 
+    
+    def agregar_cursos_dictados(self,p_curso):
+        self.__cursos_dictados.append(p_curso)
+
+    def agregar_dpto_perteneciente(self, p_dpto):
+        self.__dptos.append(p_dpto)
+
     
 
 #cursos inscriptos pasan a ser atributos de las clases hijas ya que son diferentes las acciones que hacen con esos cursos, 
 # un alumno cursa, un profesor enseña
+
+if __name__ == "__main__":
+    alumno1=Alumno('44981249','Sofía Mendez','sofiamendez847@gmail.com')
+    print(alumno1.nombre_y_apellido)

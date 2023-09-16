@@ -1,46 +1,44 @@
 from modules.clase_curso import Curso
 from modules.clase_facultad import Facultad
 from modules.clase_persona import Alumno, Profesor
-from modules.clase_departamento import Departamento
+
 
 facultad=Facultad("Facultad de Ingenieria","Departamento X")
-profesor1=Profesor('20338023', 'Isidora Zibecchi', 'abo_zibecchi@hotmail.com', True, None)
+profesor1=Profesor('20338023', 'Isidora Zibecchi', 'abo_zibecchi@hotmail.com')
+profesor2=Profesor('21129054', 'Mario Erni', 'mario.erni2gmail.com')
 curso=Curso('Programación Avanzada', profesor1)
-alumno1=Alumno('44981249','Sofía','sofiamendez847@gmail.com')
+alumno1=Alumno('44981249','Sofía Mendez','sofiamendez847@gmail.com')
  
-#El None hace referencia a que no tiene un departamento asiganado aun
+
 
 facultad.agregar_alumno(alumno1)
 
-facultad.mostrar_alumnos()
+print(facultad.lista_alumnos)
 
-departamento_X=facultad.lista_departamentos[0]
-#departamento_X.agregar_profe(profesor1)
-print(facultad)
-print(departamento_X)
 
-"""facultad.crear_departamentos('Departamento de Programación')
+facultad.asignar_profesor_departamento(profesor1,"Departamento X")
 
-departamento2.agregar_profe(profesor1)
+facultad.crear_departamentos('Departamento de Programación')
+facultad.asignar_profesor_departamento(profesor2,"Departamento de Programación")
+print(facultad.departamentos)
 
-facultad.mostrar_departamentos()
 
-facultad.devolver_equipo()
+print(facultad.devolver_equipo())
 
-alumno1.mostrar_datos()
+# alumno1.mostrar_datos()
 
-curso.agregar_alumno(alumno1)
+# curso.agregar_alumno(alumno1)
 
-curso.mostrar_estudiantes()
+# curso.mostrar_estudiantes()
 
-curso.agregar_profesor(profesor1)
+# curso.agregar_profesor(profesor1)
 
-curso.mostrar_catedra()
+# curso.mostrar_catedra()
 
-facultad.asignar_docente(profesor1,"Departamento de Informática")
+# facultad.asignar_docente(profesor1,"Departamento de Informática")
 
-facultad.asignar_jefe("Departamento de Informática",profesor1)
+# facultad.asignar_jefe("Departamento de Informática",profesor1)
 
-lista_integrantes_departamento_informatica=facultad.devolver_equipo("Departamento de Informática")
+# lista_integrantes_departamento_informatica=facultad.devolver_equipo("Departamento de Informática")
 
-print(lista_integrantes_departamento_informatica)"""
+# print(lista_integrantes_departamento_informatica)
