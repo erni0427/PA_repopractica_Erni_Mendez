@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sofe&Teby Verduleria</title>
+</head>
+<h1><b>Sofe&Teby Verduleria</b></h1>
+<body style="background-color:rgba(194, 247, 50, 0.764);">
+
+    <form method="POST" name="n">
+        <label for="n">N° de alimentos: </label><br>
+        <input type="text" id="n" name="n"><br>
+        INICIAR CARGA: <input type="submit"> 
+    </form><br>
+
+      <img src="/static/cintap.JPG" width="200" height="130">
+
+
+<h1></h1>
+<table form method="POST" style="border: 1px solid black">
+  <colgroup>
+    <col span="2" style="background-color: #ffffff">
+  </colgroup>
+  <tr>
+    <td><b>Aw Frutas</b></td>
+    <td>{{aw_F}}</td>
+  </tr>
+  <tr>
+    <td>Aw Kiwis</td>
+    <td>{{aw_k}}</td>
+  </tr>
+  <tr>
+    <td>Aw Manzanas</td>
+    <td>{{aw_m}}</td>
+  </tr>
+  <tr>
+    <td><b>Aw Verduras</b></td>
+    <td>{{aw_V}}</td>
+  </tr>
+  <tr>
+    <td>Aw Papas</td>
+    <td>{{aw_p}}</td>
+  </tr>
+  <tr>
+    <td>Aw Zanahorias</td>
+    <td>{{aw_z}}</td>
+  </tr>
+  <tr>
+    <td><b>Aw Total</b></td>
+    <td>{{aw_T}}</td>
+  </tr>
+</table>
+<p>  </p>
+{%for i in lista%}
+  {%if i > 0.95%}
+    <p style="background-color:Orange"> Se recomienda la inspección del cajón</p>
+    {%endif%}
+  {%endfor%}
+</body>
+</html>
