@@ -1,4 +1,5 @@
 from modules.clase_persona import Profesor
+from modules.clase_curso import Curso
 class Departamento:
     def __init__(self, nombre):
         self.__nombre=nombre
@@ -47,6 +48,12 @@ class Departamento:
                 for curso in self.__lista_cursos:
                     if p_curso == curso.nombre:
                         curso.agregar_profesor(p_profesor)
+                        
+    def agregar_curso(self, p_curso):
+        if isinstance(p_curso,Curso):
+            if p_curso not in self.__lista_cursos:
+                self.__lista_cursos.append(p_curso)
+                p_curso.agregar_dpto_perteneciente(self)
     
     def __str__(self):
         salida=self.__nombre

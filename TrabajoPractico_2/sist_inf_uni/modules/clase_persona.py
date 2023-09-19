@@ -39,11 +39,11 @@ class Alumno(Persona):
         self.__cursos_inscriptos.append(p_curso)
 
     def __str__(self):
-        salida=self.__cursos_inscriptos
+        salida=self.nombre_y_apellido
         return (salida) #muestra solo objeto con sus atributos
     
     def __repr__(self):
-        salida=self.__cursos_inscriptos
+        salida=self.nombre_y_apellido
         return (salida) #sirve para mostrar objetos dentro de una lista
 
 class Profesor(Persona):

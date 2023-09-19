@@ -1,5 +1,6 @@
 from modules.clase_departamento import Departamento
 from modules.clase_persona import Alumno, Profesor
+from modules.clase_curso import Curso
 
 class Facultad:
     def __init__ (self,nombre,departamento_inicial):
@@ -19,10 +20,30 @@ class Facultad:
     @property
     def nombre(self):
         return(self.__nombre)
-
+    
+    def mostrar_director_dpto(self,p_nombre_dpto):
+        for departamento in self.__lista_departamentos:
+            if p_nombre_dpto == departamento.nombre:
+                return(departamento.director)
+    def mostrar_lista_cursos_departamento(self, p_nombre_dpto):
+        for departamento in self.__lista_departamentos:
+            if p_nombre_dpto == departamento.nombre:
+                return(departamento.lista_cursos)
     
     def agregar_alumno(self, p_alumno):
         self.__lista_alumnos.append(p_alumno)
+    
+    def agregar_curso_departamento(self,p_curso,p_nombre_dpto):
+        if isinstance(p_curso, Curso):
+            for departamento in self.__lista_departamentos:
+                if p_nombre_dpto == departamento.nombre:
+                    departamento.agregar_curso(p_curso)
+    
+    def asignar_director_departamento(self, p_profesor, p_nombre_dpto):
+        if isinstance(p_profesor, Profesor):
+            for departamento in self.__lista_departamentos:
+                if p_nombre_dpto == departamento.nombre:
+                    departamento.asignar_director(p_profesor)
     
     def asignar_profesor_departamento(self, p_profesor, p_nombre_dpto):
         if isinstance(p_profesor,Profesor):

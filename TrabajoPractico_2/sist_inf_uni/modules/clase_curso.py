@@ -3,7 +3,8 @@ class Curso:
 
     def __init__(self, nombre, profesor_a_cargo):
         self.__nombre=nombre
-        self.__profesor_a_cargo=None
+        self.__profesor_a_cargo=profesor_a_cargo
+        profesor_a_cargo.agregar_cursos_dictados(self)
         self.__estudiantes=[]
         self.__dpto=[]
     
@@ -28,14 +29,10 @@ class Curso:
             self.__estudiantes.append(p_alumno)
             p_alumno.agregar_cursos_inscriptos(self)
     
-    def agregar_profesor(self, p_profesor_a_cargo):
-        if isinstance(p_profesor_a_cargo, Profesor):
-            self.__profesor_a_cargo.cursos_dictados.append(p_profesor_a_cargo)
-            p_profesor_a_cargo.agregar_cursos_dictados(self)
- #Para cada curso que dicta un profesor, me pregunto si es el que estoy trabajando actualmente y si es asi lo asigno como profesor a cargo
 
     def agregar_dpto_perteneciente(self, p_dpto):
         self.__dpto.append(p_dpto)
+    
     
     def __str__(self):
         salida=self.__nombre
