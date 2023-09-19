@@ -1,0 +1,8 @@
+{
+    "python.testing.pytestArgs": [
+        "sist_inf_uni"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "python.analysis.typeCheckingMode": "off"
+}
