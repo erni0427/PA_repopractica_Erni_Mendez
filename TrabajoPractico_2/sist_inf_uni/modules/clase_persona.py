@@ -38,7 +38,13 @@ class Alumno(Persona):
     def agregar_cursos_inscriptos(self,p_curso):
         self.__cursos_inscriptos.append(p_curso)
 
-        
+    def __str__(self):
+        salida=self.__cursos_inscriptos
+        return (salida) #muestra solo objeto con sus atributos
+    
+    def __repr__(self):
+        salida=self.__cursos_inscriptos
+        return (salida) #sirve para mostrar objetos dentro de una lista
 
 class Profesor(Persona):
     
@@ -70,11 +76,4 @@ class Profesor(Persona):
     def agregar_dpto_perteneciente(self, p_dpto):
         self.__dptos.append(p_dpto)
 
-    
 
-#cursos inscriptos pasan a ser atributos de las clases hijas ya que son diferentes las acciones que hacen con esos cursos, 
-# un alumno cursa, un profesor enseña
-
-if __name__ == "__main__":
-    alumno1=Alumno('44981249','Sofía Mendez','sofiamendez847@gmail.com')
-    print(alumno1.nombre_y_apellido)

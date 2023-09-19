@@ -21,19 +21,14 @@ class Facultad:
         return(self.__nombre)
 
     
-    def agregar_alumno(self, alumno):
-        self.__lista_alumnos.append(alumno)
+    def agregar_alumno(self, p_alumno):
+        self.__lista_alumnos.append(p_alumno)
     
     def asignar_profesor_departamento(self, p_profesor, p_nombre_dpto):
         if isinstance(p_profesor,Profesor):
             for departamento in self.__lista_departamentos:
                 if p_nombre_dpto == departamento.nombre:
                     departamento.agregar_profe(p_profesor)
-
-
-    @property
-    def departamentos(self):
-        return(self.__lista_departamentos)
 
     def crear_departamentos(self, nombre):
         departamento=Departamento(nombre)
@@ -53,12 +48,3 @@ class Facultad:
         salida=self.__nombre
         return (salida) #sirve para mostrar objetos dentro de una lista
     
-# if __name__ == "__main__":
-#     facultad1=Facultad('Facultad de Ingenieria','DepartamentoX')
-#     from modules.clase_persona import Alumno
-#     alumno1=Alumno('44981249','Sofía','sofiamendez847@gmail.com')
-#     alumno2=Alumno('42332860','Esteban','sofiamendez847@gmail.com')
-#     facultad1.agregar_alumno(alumno1)
-#     facultad1.agregar_alumno(alumno2)
-#     facultad1.alumnos
-#     print(facultad1)
