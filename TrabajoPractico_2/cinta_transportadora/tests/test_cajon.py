@@ -1,12 +1,12 @@
 import unittest as ut
 from modules.funcion import detectar
-from modules.cajon import Cajón
+from modules.cajon import Cajon
 from modules.cintatransportadora import CintaTransportadora
 from modules.alimentos import Alimento
 
-class TestCajón(ut.TestCase):
+class TestCajon(ut.TestCase):
     def test_my_cajon(self):
-        cajon1=Cajón(1)
+        cajon1=Cajon(1)
         cinta1=CintaTransportadora()
         while 1 > len(cajon1.elementos):
            alimento_detectado=cinta1.Transportar(cajon1)

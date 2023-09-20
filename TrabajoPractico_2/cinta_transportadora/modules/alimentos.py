@@ -9,12 +9,6 @@ class Alimento(ABC): #Todas sus instancias se agregan a un cajón
         self.peso= peso
     @abstractmethod
 
-
-    def CalcularAW(self):
-        pass
-
-
-
 class Fruta(Alimento,ABC):
     def __init__(self, dic):
         pass

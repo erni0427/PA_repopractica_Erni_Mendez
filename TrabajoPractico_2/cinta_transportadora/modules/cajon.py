@@ -1,4 +1,5 @@
-class Cajón: #Se asocia con CintaTransportadora
+from modules.alimentos import Alimento
+class Cajon: #Se asocia con CintaTransportadora
     def __init__(self, n_elementos=int):
         self.__elementos=[]
         self.__n_elementos=n_elementos
@@ -12,14 +13,11 @@ class Cajón: #Se asocia con CintaTransportadora
         return(self.__n_elementos)
 
     def agregar(self, Alimento):
-        Infed=[]
         if Alimento.nombre == 'undefined':
             print("No se pudo realizar el transporte")
             pass
-#            self.Indef.append(Alimento)
-#            rint("!!!!!"+self.Indef)
-        elif self.__n_elementos > len(self.__elementos):
-            self.__elementos.append(Alimento)
+        elif self.__n_elementos > len(self.__elementos): #verif si la cant de elementos es> a la cant permitida
+            self.__elementos.append(Alimento)              # si cumple agrega
         else:
             print("Cajón lleno")
 #        print(self.elementos)
@@ -31,7 +29,7 @@ class Cajón: #Se asocia con CintaTransportadora
                 cont += 1
                 tot += e.CalcularAW()
         if cont !=0 : 
-            return tot/cont
+            return tot/cont #devuelve 0 xq no se encontraron elementos de ese tipo
         else: 
             return cont
 

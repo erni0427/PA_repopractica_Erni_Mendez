@@ -1,7 +1,7 @@
 import unittest as ut
 from modules.funcion import detectar
 from modules.cintatransportadora import CintaTransportadora
-from modules.cajon import Cajón
+from modules.cajon import Cajon
 from modules.alimentos import Alimento
 
 
@@ -10,7 +10,7 @@ class Testdetectar(ut.TestCase):
     
     def test_my_detectar(self):
         cinta1=CintaTransportadora()
-        cajon1=Cajón(1)
+        cajon1=Cajon(1)
         alimento_detectado=cinta1.Transportar(cajon1)
         alimento_definido=detectar(alimento_detectado)
         if isinstance(alimento_definido,Alimento):

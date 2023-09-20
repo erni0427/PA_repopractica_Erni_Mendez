@@ -1,8 +1,8 @@
 from modules.alimentos import Alimento, Papa, Verdura, Zanahoria, Manzana, Kiwi, Fruta
 
-def detectar(diccionario=dict):
-    if diccionario['alimento'] == 'kiwi':
-        kiwi=Kiwi(diccionario)
+def detectar(diccionario=dict): #para identificar de que alimento se trata
+    if diccionario['alimento'] == 'kiwi': 
+        kiwi=Kiwi(diccionario) #Si el valor de 'alimento' en el diccionario es 'kiwi', la función crea una instancia de la clase Kiwi pasando el diccionario como argumento, y luego devuelve esa instancia.
         return kiwi
     elif diccionario['alimento'] == 'papa':
         papa=Papa(diccionario)
