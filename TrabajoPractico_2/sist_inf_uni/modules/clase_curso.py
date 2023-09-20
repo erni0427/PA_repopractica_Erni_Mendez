@@ -1,4 +1,4 @@
-from modules.clase_persona import Alumno, Profesor
+from modules.clase_persona import Alumno
 class Curso:
 
     def __init__(self, nombre, profesor_a_cargo):

@@ -35,13 +35,8 @@ class Departamento:
                 if not p_profesor.es_jefe:
                     self.__director=p_profesor
                     p_profesor.es_jefe=True
+
     
-    
-    def asignar_profesor_departamento(self, p_profesor, p_nombre_dpto):
-        if isinstance(p_profesor,Profesor):
-            for departamento in self.__lista_departamentos:
-                if p_nombre_dpto == departamento.nombre:
-                    departamento.agregar_profe(p_profesor)
     
     def asignar_profesor_curso(self, p_profesor, p_curso):
             if isinstance(p_profesor,Profesor):

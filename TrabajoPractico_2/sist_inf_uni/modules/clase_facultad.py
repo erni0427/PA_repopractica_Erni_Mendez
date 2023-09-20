@@ -21,11 +21,12 @@ class Facultad:
     def nombre(self):
         return(self.__nombre)
     
-    def mostrar_director_dpto(self,p_nombre_dpto):
+    def devolver_director_dpto(self,p_nombre_dpto):
         for departamento in self.__lista_departamentos:
             if p_nombre_dpto == departamento.nombre:
                 return(departamento.director)
-    def mostrar_lista_cursos_departamento(self, p_nombre_dpto):
+            
+    def devolver_lista_cursos_departamento(self, p_nombre_dpto):
         for departamento in self.__lista_departamentos:
             if p_nombre_dpto == departamento.nombre:
                 return(departamento.lista_cursos)

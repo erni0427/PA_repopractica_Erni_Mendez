@@ -3,7 +3,7 @@ from modules.clase_facultad import Facultad
 from modules.clase_persona import Alumno, Profesor
 
 
-facultad=Facultad("Facultad de Ingenieria","Departamento Alumnado")
+facultad=Facultad("Facultad de Ingenieria","Alumnado")
 profesor1=Profesor('20338023', 'Isidora Zibecchi', 'abo_zibecchi@hotmail.com')
 profesor2=Profesor('21129054', 'Mario Erni', 'mario.erni2gmail.com')
 curso=Curso('Programación Avanzada', profesor1)
@@ -17,7 +17,9 @@ facultad.agregar_alumno(alumno1)
 print(facultad.lista_alumnos)
 
 
-facultad.asignar_profesor_departamento(profesor1,"Departamento Alumnado")
+facultad.asignar_profesor_departamento(profesor1,"Alumnado")
+
+
 
 facultad.crear_departamentos('Departamento de Programación')
 facultad.asignar_profesor_departamento(profesor2,"Departamento de Programación")
@@ -40,8 +42,9 @@ print(curso.estudiantes)
 print(curso.profesor_a_cargo) 
 
 
-facultad.asignar_director_departamento("Departamento de Alumnado",profesor1)
-facultad.mostrar_director_dpto("Departamento de Alumnado")
+facultad.asignar_director_departamento(profesor1,"Alumnado")
 
-facultad.agregar_curso_departamento(curso,'Departamento Alumnado')
-facultad.mostrar_lista_cursos_departamento('Departamento Alumnado') #no anda
+print(facultad.devolver_director_dpto("Alumnado"))
+
+facultad.agregar_curso_departamento(curso,'Alumnado')
+print(facultad.devolver_lista_cursos_departamento('Alumnado'))
