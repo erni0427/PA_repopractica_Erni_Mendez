@@ -4,6 +4,7 @@ class CintaTransportadora: #Contiene a la clase DetectorAlimento y utiliza la cl
     def __init__(self):
         detector=DetectorAlimento()
         self.__detector=detector
+        
     @property
     def detector(self):
         return(self.__detector)
