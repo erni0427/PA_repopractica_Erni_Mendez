@@ -1,21 +1,51 @@
 import unittest as ut
-from modules.funcion import detectar
 from modules.cajon import Cajon
 from modules.cintatransportadora import CintaTransportadora
-from modules.alimentos import Alimento
+from modules.alimentos import Alimento, Manzana, Kiwi, Papa, Zanahoria
 
 class TestCajon(ut.TestCase):
-    def test_my_cajon(self):
-        cajon1=Cajon(1)
-        cinta1=CintaTransportadora()
-        while 1 > len(cajon1.elementos):
-           alimento_detectado=cinta1.Transportar(cajon1)
-           alimento_definido=detectar(alimento_detectado)
-           if isinstance(alimento_definido,Alimento):
-                cajon1.agregar(alimento_definido)    
-        #primer_alimento_lista=cajon1.elementos[0]
-        #self.assertIsNotNone(primer_alimento_lista)
-        self.assertIn(alimento_definido, cajon1.elementos)
+    def setUp(self):
+        # Crea una instancia de Cajon para usar en las pruebas
+        self.cajon = Cajon(n_elementos=10)  # Puedes ajustar el número de elementos según tus necesidades
+
+    def test_agregar_alimento(self):
+        # Prueba agregar un alimento al cajón
+        manzana = Manzana(100)
+        self.cajon.agregar(manzana)
+        self.assertIn(manzana, self.cajon.elementos)  # Verifica que la manzana esté en el cajón
+
+        # Prueba agregar un alimento "Indefinido" (debería generar una excepción)
+        with self.assertRaises(Exception):
+            self.cajon.agregar("Indefinido")
+
+    def test_prom_aw(self):
+        # Prueba el cálculo del promedio de aw para un tipo específico de alimento
+        manzana1 = Manzana(100)
+        manzana2 = Manzana(120)
+        kiwi = Kiwi(80)
+
+        self.cajon.agregar(manzana1)
+        self.cajon.agregar(manzana2)
+        self.cajon.agregar(kiwi)
+
+        promedio_manzanas = self.cajon.prom_aw(Manzana)
+        self.assertAlmostEqual(promedio_manzanas, 0.97, places=2)  # Verifica el promedio con tolerancia de 2 decimales
+
+    def test_aw_alimentos(self):
+        # Prueba el cálculo de aw para diferentes tipos de alimentos
+        manzana = Manzana(100)
+        kiwi = Kiwi(80)
+        papa = Papa(150)
+
+        self.cajon.agregar(manzana)
+        self.cajon.agregar(kiwi)
+        self.cajon.agregar(papa)
+
+        aw_result = self.cajon.aw_alimentos()
+        self.assertAlmostEqual(aw_result["aw_manzanas"], 0.97, places=2)
+        self.assertAlmostEqual(aw_result["aw_kiwis"], 0.96, places=2)
+        self.assertAlmostEqual(aw_result["aw_papas"], 1.04, places=2)
+
 
 if __name__=='__main__':
     ut.main()
