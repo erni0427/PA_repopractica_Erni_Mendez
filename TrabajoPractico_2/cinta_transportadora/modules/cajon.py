@@ -3,7 +3,6 @@ class Cajon: #Se asocia con CintaTransportadora
     def __init__(self, n_elementos=int):
         self.__elementos=[]
         self.__n_elementos=n_elementos
-        return
     
     @property
     def elementos(self):
@@ -12,7 +11,9 @@ class Cajon: #Se asocia con CintaTransportadora
     def n_elementos(self):
         return(self.__n_elementos)
 
-    def agregar(self, alimento): #PREGUNTAR
+    def agregar(self, alimento): 
+        if not isinstance(alimento, Alimento):
+            raise Exception("No es un alimento")
         if self.n_elementos > len(self.elementos): #verificar si la cant de elementos es> a la cant permitida
             self.elementos.append(alimento)              # si cumple agrega
         else:
@@ -41,3 +42,13 @@ class Cajon: #Se asocia con CintaTransportadora
             "aw_total" :  round(self.prom_aw(Alimento),2) 
         }
         return actividad
+    # def__iter__
+    # def__next__
+
+if __name__ == "__main__":
+    cajon1=Cajon(10)
+    cajon1.agregar("Indefinido")
+    print(cajon1.elementos)
+
+    for alimento in cajon:
+	print(alimento)

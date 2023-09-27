@@ -21,18 +21,20 @@ class CintaTransportadora: #Contiene a la clase DetectorAlimento y utiliza la cl
     
     def detectar(self,diccionario={}): #para identificar de que alimento se trata
         if diccionario['alimento'] == 'Kiwi': 
-            kiwi=Kiwi(diccionario) 
+            kiwi=Kiwi(diccionario['peso']) 
             #Si el valor de 'alimento' en el diccionario es 'kiwi', la función crea una instancia de la clase Kiwi pasando el diccionario 
             # como argumento, y luego devuelve esa instancia.
             return kiwi
-        elif diccionario['alimento'] == 'Papa':
-            papa=Papa(diccionario)
+        elif diccionario['alimento'] == 'Papa': #me fijo en clave alim del dicc si es tipo papa, si es asi, crea obj papa c peso
+            papa=Papa(diccionario['peso']) 
             return papa
         elif diccionario['alimento'] == 'Manzana':
-            manzana=Manzana(diccionario)
+            manzana=Manzana(diccionario['peso']) 
             return manzana
         elif diccionario['alimento'] == 'Zanahoria':
-            zanahoria=Zanahoria(diccionario)
+            zanahoria=Zanahoria(diccionario['peso']) 
             return zanahoria
         else:
             return('Indefinido')
+        
+#if __name__ == "__main__":

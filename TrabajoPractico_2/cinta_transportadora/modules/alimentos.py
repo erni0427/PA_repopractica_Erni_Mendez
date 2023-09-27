@@ -22,7 +22,12 @@ class Fruta(Alimento, ABC):
 
 class Manzana(Fruta): 
     def __init__(self, peso):
-        super().__init__(peso)
+        if isinstance(peso, float):
+            super().__init__(peso)
+        else:
+            raise ValueError("El peso debe ser un número decimal (float)")
+        
+
 
     def CalcularAW(self):
         c=15 
@@ -35,7 +40,10 @@ class Manzana(Fruta):
 
 class Kiwi(Fruta):
     def __init__(self, peso):
-        super().__init__(peso)
+        if isinstance(peso, float):
+            super().__init__(peso)
+        else:
+            raise ValueError("El peso debe ser un número decimal (float)")
 
     def CalcularAW(self):
         c=18#**(-1)
@@ -53,7 +61,10 @@ class Verdura(Alimento,ABC):
 
 class Papa(Verdura):
     def __init__(self, peso):
-        super().__init__(peso)
+        if isinstance(peso, float):
+            super().__init__(peso)
+        else:
+            raise ValueError("El peso debe ser un número decimal (float)")
     
     def CalcularAW(self):
         c=18#**(-1)
@@ -66,7 +77,10 @@ class Papa(Verdura):
 
 class Zanahoria(Verdura):
     def __init__(self,peso):
-        super().__init__(peso)
+        if isinstance(peso, float):
+            super().__init__(peso)
+        else:
+            raise ValueError("El peso debe ser un número decimal (float)")
 
     def CalcularAW(self):
         c=10#**(-1) 
