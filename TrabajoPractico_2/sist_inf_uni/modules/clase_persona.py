@@ -28,8 +28,8 @@ class Persona:
 
 class Alumno(Persona):
     def __init__(self, DNI, nombre, correo):
-        super().__init__(DNI, nombre, correo)
-        self.__cursos_inscriptos=[]
+        super().__init__(DNI, nombre, correo) #superinit:construcor d clase madre, p inicializar
+        self.__cursos_inscriptos=[] #
 
     @property
     def cursos_inscriptos(self):
@@ -60,7 +60,7 @@ class Profesor(Persona):
    
     @es_jefe.setter
     def es_jefe(self,p_valor):
-        self.__es_jefe=p_valor
+        self.__es_jefe=p_valor #devuelve si un prof es jefe o no
 
     @property
     def dptos(self):

@@ -2,9 +2,9 @@ from modules.clase_departamento import Departamento
 from modules.clase_persona import Alumno, Profesor
 from modules.clase_curso import Curso
 
-class Facultad:
-    def __init__ (self,nombre,departamento_inicial):
-        self.__lista_departamentos=[Departamento(departamento_inicial)]
+class Facultad: #se construye clase
+    def __init__ (self,nombre,departamento_inicial): #arg
+        self.__lista_departamentos=[Departamento(departamento_inicial)] #1er dpto q se crea y se agrega a la lista
         self.__lista_alumnos = []
         self.__nombre = nombre
     #.set para agregar y get para mostrar q se usa con property
@@ -21,15 +21,15 @@ class Facultad:
     def nombre(self):
         return(self.__nombre)
     
-    def devolver_director_dpto(self,p_nombre_dpto):
-        for departamento in self.__lista_departamentos:
-            if p_nombre_dpto == departamento.nombre:
-                return(departamento.director)
+    def devolver_director_dpto(self,p_nombre_dpto): #self se refiere  faucltad
+        for departamento in self.__lista_departamentos: #recorre listadptos
+            if p_nombre_dpto == departamento.nombre: #verif si el nombredpto es igual al q se paso como argum
+                return(departamento.director) #si es asi se devuelve el nombre del director del dpto
             
     def devolver_lista_cursos_departamento(self, p_nombre_dpto):
         for departamento in self.__lista_departamentos:
             if p_nombre_dpto == departamento.nombre:
-                return(departamento.lista_cursos)
+                return(departamento.lista_cursos) #cursos q pertenecen al dpto
     
     def agregar_alumno(self, p_alumno):
         self.__lista_alumnos.append(p_alumno)
@@ -38,7 +38,7 @@ class Facultad:
         if isinstance(p_curso, Curso):
             for departamento in self.__lista_departamentos:
                 if p_nombre_dpto == departamento.nombre:
-                    departamento.agregar_curso(p_curso)
+                    departamento.agregar_curso(p_curso) #agregar curso viene depto
     
     def asignar_director_departamento(self, p_profesor, p_nombre_dpto):
         if isinstance(p_profesor, Profesor):
@@ -52,13 +52,13 @@ class Facultad:
                 if p_nombre_dpto == departamento.nombre:
                     departamento.agregar_profe(p_profesor)
 
-    def crear_departamentos(self, nombre):
-        departamento=Departamento(nombre)
-        self.__lista_departamentos.append(departamento)
+    def crear_departamentos(self, nombre): #nombre del dpto a crear
+        departamento=Departamento(nombre) #se crea instancia dpto
+        self.__lista_departamentos.append(departamento) #se agrega a la list de dptos
 
-    def devolver_equipo(self):
-        lista=[]
-        for i in self.__lista_departamentos:
+    def devolver_equipo(self): #se obtiene lista de lista de prof de cda dpto
+        lista=[] 
+        for i in self.__lista_departamentos: #en cada i se obtiene lista de prof de cda dpto
             lista.append(i.lista_integrantes)
         return(lista)
             #Recorre todos los departamentos y por cada departamento muestra todos los profesores integrantes

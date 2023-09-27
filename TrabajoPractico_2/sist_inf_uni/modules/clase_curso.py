@@ -26,8 +26,8 @@ class Curso:
     
     def agregar_alumno(self, p_alumno):
         if isinstance(p_alumno, Alumno):
-            self.__estudiantes.append(p_alumno)
-            p_alumno.agregar_cursos_inscriptos(self)
+            self.__estudiantes.append(p_alumno) #el alumno se inscribe
+            p_alumno.agregar_cursos_inscriptos(self) #relacion entre alumno y curso
     
 
     def agregar_dpto_perteneciente(self, p_dpto):
@@ -36,7 +36,7 @@ class Curso:
     
     def __str__(self):
         salida=self.__nombre
-        return (salida)
+        return (salida) #devuelve nombre del dpto como cadena
     
     def __repr__(self):
         salida=self.__nombre
