@@ -3,6 +3,7 @@ class Cajon: #Se asocia con CintaTransportadora
     def __init__(self, n_elementos=int):
         self.__elementos=[]
         self.__n_elementos=n_elementos
+        self.__indice_actual = 0
     
     @property
     def elementos(self):
@@ -10,7 +11,10 @@ class Cajon: #Se asocia con CintaTransportadora
     @property
     def n_elementos(self):
         return(self.__n_elementos)
-
+    @property
+    def indice_actual(self):
+        return(self.__indice_actual)
+    
     def agregar(self, alimento): 
         if not isinstance(alimento, Alimento):
             raise Exception("No es un alimento")
@@ -42,13 +46,34 @@ class Cajon: #Se asocia con CintaTransportadora
             "aw_total" :  round(self.prom_aw(Alimento),2) 
         }
         return actividad
-    # def__iter__
-    # def__next__
+    
+    def __iter__(self): #se llama cuando se utiliza la función iter(cajon) para obtener un iterador desde el objeto cajon.
+        self.indice_actual = 0  # Reiniciar el índice al inicio
+        return self 
+    #Devuelve self como el propio objeto iterador. Esto significa que la propia instancia de Cajon actuará como el 
+    #iterador, y el método __next__ será llamado en esta misma instancia.
+
+    def __next__(self): 
+        # se llama en cada iteración del ciclo for para obtener el siguiente elemento.
+        if self.indice_actual < len(self.elementos): 
+            # Esto asegura que no intentemos acceder a elementos que están más allá de la cantidad de elementos reales en el cajón.
+            elemento = self.elementos[self.indice_actual] 
+            #Obtiene el elemento actual del cajón utilizando el índice actual.
+            self.indice_actual += 1
+            # Incrementa el índice actual en 1 para que en la próxima iteración se obtenga el siguiente elemento.
+            return elemento
+        raise StopIteration 
+        #Cuando hemos recorrido todos los elementos del cajón, lanzamos la excepción StopIteration. 
+        # Esto le indica al ciclo for que detenga la iteración, ya que no hay más elementos que recorrer.
+
 
 if __name__ == "__main__":
-    cajon1=Cajon(10)
-    cajon1.agregar("Indefinido")
-    print(cajon1.elementos)
+
+    cajon = Cajon(5)
+    cajon.agregar(Manzana(0.1))
+    cajon.agregar(Kiwi(0.45))
+    cajon.agregar(Papa(0.05))
+    cajon.agregar(Zanahoria(0.4))
 
     for alimento in cajon:
-	print(alimento)
+        print(alimento)

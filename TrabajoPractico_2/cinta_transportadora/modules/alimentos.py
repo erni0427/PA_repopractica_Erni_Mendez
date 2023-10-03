@@ -6,13 +6,17 @@ class Alimento(ABC): #Todas sus instancias se agregan a un cajón
     def __init__(self, peso):
         self.__peso= peso
     
-    @abstractmethod
-    def CalcularAW(self): 
-        pass
-    
     @property
     def peso(self):
         return(self.__peso)
+    
+    @abstractmethod
+    def CalcularAW(self): 
+        pass
+
+    @abstractmethod
+    def __str__(self):
+        pass
 
 
 class Fruta(Alimento, ABC):
@@ -33,9 +37,9 @@ class Manzana(Fruta):
         c=15 
         return (0.97*(((c*self.peso)**2)/(1+(c*self.peso)**2)))
     
-    # def __str__(self):
-    #     salida=self
-    #     return (salida) 
+    def __str__(self):
+        return "Manzana"
+
 
 
 class Kiwi(Fruta):
@@ -49,9 +53,8 @@ class Kiwi(Fruta):
         c=18#**(-1)
         return (0.96*((1-sp.exp(-(c*self.peso)))/(1+sp.exp(-(c*self.peso)))))
     
-    # def __str__(self):
-    #     salida=self
-    #     return (salida)
+    def __str__(self):
+        return "Kiwi"
 
 
 class Verdura(Alimento,ABC):
@@ -70,9 +73,8 @@ class Papa(Verdura):
         c=18#**(-1)
         return (0.66*sp.atan(c*self.peso))
     
-    # def __str__(self):
-    #     salida=self
-    #     return (salida)
+    def __str__(self):
+        return "Papa"
         
 
 class Zanahoria(Verdura):
@@ -86,7 +88,6 @@ class Zanahoria(Verdura):
         c=10#**(-1) 
         return (0.96*(1-sp.exp(-(c*self.peso))))
     
-    # def __str__(self):
-    #     salida=self
-    #     return (salida)
+    def __str__(self):
+        return "Zanahoria"
 
