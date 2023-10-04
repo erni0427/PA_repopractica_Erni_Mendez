@@ -4,14 +4,17 @@ from abc import ABC, abstractmethod
 class Alimento(ABC): #Todas sus instancias se agregan a un cajón
     
     def __init__(self, peso):
-        self.__peso= peso
+        if isinstance(peso, float) and peso>=0.05 and peso<=0.6:
+            self.__peso= peso
+        else:
+            raise ValueError("El peso debe ser un número decimal (float) y estar en el rango posible")
     
     @property
     def peso(self):
         return(self.__peso)
     
     @abstractmethod
-    def CalcularAW(self): 
+    def calcularAW(self): 
         pass
 
     @abstractmethod
@@ -26,14 +29,11 @@ class Fruta(Alimento, ABC):
 
 class Manzana(Fruta): 
     def __init__(self, peso):
-        if isinstance(peso, float):
             super().__init__(peso)
-        else:
-            raise ValueError("El peso debe ser un número decimal (float)")
-        
 
 
-    def CalcularAW(self):
+
+    def calcularAW(self):
         c=15 
         return (0.97*(((c*self.peso)**2)/(1+(c*self.peso)**2)))
     
@@ -44,12 +44,9 @@ class Manzana(Fruta):
 
 class Kiwi(Fruta):
     def __init__(self, peso):
-        if isinstance(peso, float):
             super().__init__(peso)
-        else:
-            raise ValueError("El peso debe ser un número decimal (float)")
 
-    def CalcularAW(self):
+    def calcularAW(self):
         c=18#**(-1)
         return (0.96*((1-sp.exp(-(c*self.peso)))/(1+sp.exp(-(c*self.peso)))))
     
@@ -64,12 +61,9 @@ class Verdura(Alimento,ABC):
 
 class Papa(Verdura):
     def __init__(self, peso):
-        if isinstance(peso, float):
             super().__init__(peso)
-        else:
-            raise ValueError("El peso debe ser un número decimal (float)")
     
-    def CalcularAW(self):
+    def calcularAW(self):
         c=18#**(-1)
         return (0.66*sp.atan(c*self.peso))
     
@@ -79,15 +73,19 @@ class Papa(Verdura):
 
 class Zanahoria(Verdura):
     def __init__(self,peso):
-        if isinstance(peso, float):
             super().__init__(peso)
-        else:
-            raise ValueError("El peso debe ser un número decimal (float)")
+        
 
-    def CalcularAW(self):
+    def calcularAW(self):
         c=10#**(-1) 
         return (0.96*(1-sp.exp(-(c*self.peso))))
     
     def __str__(self):
         return "Zanahoria"
+    
+
+# if __name__=="__main__":
+#     manzana=Manzana(-0.5)
+#     print(manzana.calcularAW())
+    
 

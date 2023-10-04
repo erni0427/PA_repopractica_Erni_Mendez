@@ -12,19 +12,20 @@ class Testdetectar(ut.TestCase):
         self.detector = DetectorAlimento()
 
     def test_detectar_alimento(self):
-        # Prueba que el método detectar_alimento devuelva un diccionario
-        resultado = self.detector.detectar_alimento()
-        self.assertIsInstance(resultado, dict)
+        for i in range(1000):
+            # Prueba que el método detectar_alimento devuelva un diccionario
+            resultado = self.detector.detectar_alimento()
+            self.assertIsInstance(resultado, dict)
 
-        # Prueba que el diccionario tenga una clave "alimento" y una clave "peso"
-        self.assertIn("alimento", resultado)
-        self.assertIn("peso", resultado)
+            # Prueba que el diccionario tenga una clave "alimento" y una clave "peso"
+            self.assertIn("alimento", resultado)
+            self.assertIn("peso", resultado)
 
-        # Prueba que el "alimento" en el diccionario esté en la lista de alimentos conocidos
-        self.assertIn(resultado["alimento"], self.detector.alimentos)
+            # Prueba que el "alimento" en el diccionario esté en la lista de alimentos conocidos
+            self.assertIn(resultado["alimento"], self.detector.alimentos)
 
-        # Prueba que el "peso" en el diccionario esté dentro de los valores de peso conocidos
-        self.assertTrue(0.05 <= resultado["peso"] <= 0.6)
+            # Prueba que el "peso" en el diccionario esté dentro de los valores de peso conocidos
+            self.assertTrue(0.05 <= resultado["peso"] <= 0.6)
 
 
 if __name__=='__main__':

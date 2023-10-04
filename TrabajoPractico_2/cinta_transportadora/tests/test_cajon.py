@@ -6,14 +6,28 @@ from modules.alimentos import Alimento, Manzana, Kiwi, Papa, Zanahoria
 class TestCajon(ut.TestCase):
     def setUp(self):
         # Crea una instancia de Cajon para usar en las pruebas
-        self.cajon = Cajon(n_elementos=10)  # Puedes ajustar el número de elementos según tus necesidades
+        self.cajon = Cajon()  # Puedes ajustar el número de elementos según tus necesidades
 
     def test_agregar_alimento(self):
         # Prueba agregar un alimento al cajón
         manzana = Manzana(0.4)
+        kiwi = Kiwi(0.2)
+        manzana1 = Manzana(0.4)
+        kiwi1 = Kiwi(0.2)
+        manzana2 = Manzana(0.4)
+        kiwi2 = Kiwi(0.2)
         self.cajon.agregar(manzana)
+        self.cajon.agregar(manzana1)
+        self.cajon.agregar(manzana2)
+        self.cajon.agregar(kiwi)
+        self.cajon.agregar(kiwi1)
+        self.cajon.agregar(kiwi2)
         self.assertIn(manzana, self.cajon.elementos)  # Verifica que la manzana esté en el cajón
-
+        self.assertIn(manzana1, self.cajon.elementos)
+        self.assertIn(manzana2, self.cajon.elementos)
+        self.assertIn(kiwi, self.cajon.elementos)
+        self.assertIn(kiwi1, self.cajon.elementos)
+        self.assertIn(kiwi2, self.cajon.elementos)
         # Prueba agregar un alimento "Indefinido" (debería generar una excepción)
         with self.assertRaises(Exception):
             self.cajon.agregar("Indefinido")

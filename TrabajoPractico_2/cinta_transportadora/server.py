@@ -10,12 +10,11 @@ def home():
         numero_total_alimentos_cajon=request.form['n'] 
         numero_total_alimentos_cajon=int(numero_total_alimentos_cajon) 
         cinta1=CintaTransportadora() #crea instancias de CintaTransportadora y Cajon con el número total de alimentos especificado.
-        cajon1=Cajon(numero_total_alimentos_cajon)
+        cajon1=Cajon()
 
-        while numero_total_alimentos_cajon > len(cajon1.elementos): #Se ejecuta un bucle que simula el transporte de alimentos desde 
+        while numero_total_alimentos_cajon > len(cajon1): #Se ejecuta un bucle que simula el transporte de alimentos desde 
             #la cinta transportadora al cajón hasta que se alcance el número total especificado
-           alimento_detectado=cinta1.transportar(cajon1)          #se detectan
-           alimento_definido=cinta1.detectar(alimento_detectado)
+           alimento_definido=cinta1.transportar(cajon1)          #se detectan
            if isinstance(alimento_definido,Alimento): #verificar si un objeto es una instancia de una clase específica
                 cajon1.agregar(alimento_definido)
         actividad_prom={}
