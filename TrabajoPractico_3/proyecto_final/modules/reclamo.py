@@ -58,7 +58,7 @@ class Reclamo():
     def id_adherentes(self, id_adherentes:list):
         self.__id_adherentes = id_adherentes
     
-    def adherir_id_usuario(self, id_usuario:int):
+    """def adherir_id_usuario(self, id_usuario:int):
         if id_usuario not in self.__id_adherentes:
-            self.__id_adherentes.append(id_usuario)
+            self.__id_adherentes.append(id_usuario)"""
     

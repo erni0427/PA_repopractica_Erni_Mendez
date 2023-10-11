@@ -5,6 +5,8 @@ from modules.reclamo import Reclamo
 class Departamento(ABC):
     def _init_(self):
         self.__reclamos_depto = []
+
+
     
     @property
     def reclamos_depto(self):
@@ -18,13 +20,13 @@ class Departamento(ABC):
     def analitica(self):
         """Conoce todos los reclamos (los recibe), debe mostrar estadisticas sobre el numero de reclamos"""
         pass
-
-
+  
 
 class DptoEspecifico(Departamento):
     def _init_(self, reclamos_depto, nombre):
         super().__init__(reclamos_depto)
         self.__nombre = nombre
+        #self.__reclamos_depto = reclamos_depto
 
     @property
     def nombre(self):
@@ -45,7 +47,7 @@ class DptoTecnico(Departamento):
         """Conoce todos los reclamos (los recibe), debe mostrar estadisticas sobre el numero de reclamos"""
         pass
     
-    def levantar_reclamos_depto(gestordb:GestorDB):
+    def levantar_reclamos_depto(gestordb:GestorDB): #quitar reclamo
         
         pass
 
