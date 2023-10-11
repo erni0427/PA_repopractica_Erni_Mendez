@@ -24,7 +24,7 @@ class Usuario():
     
     
     @property
-    def nombre_usario(self):
+    def nombre_usuario(self):
         return self.__nombre_usuario
     
     

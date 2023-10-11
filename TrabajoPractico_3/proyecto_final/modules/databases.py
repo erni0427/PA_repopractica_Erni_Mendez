@@ -78,17 +78,14 @@ def mostrar_reclamos_adheridos(p_id_usuario:int) -> list:
     try:
         usuario = db.session.query(UsuarioDB).filter_by(id=p_id_usuario).first()
         # Verificar si se encontró el usuario
-        if usuario:
-            # Acceder a los reclamos adheridos por el usuario
-            reclamos_adheridos = usuario.reclamos_adheridos.all()
-            # Iterar sobre los reclamos adheridos y obtener sus detalles
-            lista=[]
-            for reclamo in reclamos_adheridos:
-                lista.append(reclamo.id)
-            lista.sort()
-            return print(lista)
-        else:
-            raise UsuarioNoExiste('El usuario no existe en la base de datos.')
+        # Acceder a los reclamos adheridos por el usuario
+        reclamos_adheridos = usuario.reclamos_adheridos.all()
+        # Iterar sobre los reclamos adheridos y obtener sus detalles
+        lista=[]
+        for reclamo in reclamos_adheridos:
+            lista.append(reclamo.id)
+        lista.sort()
+        return lista
     except UsuarioNoExiste as e:
         print (f'Error: {e}') 
 
@@ -105,7 +102,7 @@ def mostrar_usuarios_adheridos(p_id_reclamo:int) -> list:
             for usuario in usuarios_adheridos:
                 lista.append(usuario.id)
             lista.sort()
-            return print(lista)
+            return lista
         else:
             raise ReclamoNoExiste('El reclamo no existe en la base de datos.')
     except ReclamoNoExiste as e:

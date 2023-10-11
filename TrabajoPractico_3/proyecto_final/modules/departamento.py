@@ -5,8 +5,6 @@ from modules.reclamo import Reclamo
 class Departamento(ABC):
     def _init_(self):
         self.__reclamos_depto = []
-
-
     
     @property
     def reclamos_depto(self):
@@ -26,7 +24,6 @@ class DptoEspecifico(Departamento):
     def _init_(self, reclamos_depto, nombre):
         super().__init__(reclamos_depto)
         self.__nombre = nombre
-        #self.__reclamos_depto = reclamos_depto
 
     @property
     def nombre(self):
