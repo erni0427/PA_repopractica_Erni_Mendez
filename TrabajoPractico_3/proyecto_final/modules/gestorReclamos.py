@@ -1,4 +1,4 @@
-# from modules.reclamo import Reclamo
+from modules.reclamo import Reclamo
 # class GestorReclamos():
 
 #     def __init__(self):
@@ -57,3 +57,48 @@
 #         # reclamos pueden ser utilizados para mostrarlos en la interfaz de usuario o para realizar otras operaciones.
 #         reclamos = ReclamoDB.query.all()
 #         return reclamos
+class GestorDeReclamos:
+    def __init__(self):
+        self.usuarios = []  # Lista para almacenar usuarios
+        self.reclamos = []  # Lista para almacenar reclamos
+
+    def registrar_usuario(self, usuario):
+        # Comprobar si el nombre de usuario o correo ya existen
+        if any(u.nombre_usuario == usuario.nombre_usuario or u.id_usuario == usuario.id_usuario for u in self.usuarios):
+            print("Nombre de usuario o correo electrónico ya existen. Por favor, elija otro.")
+            return False
+
+        self.usuarios.append(usuario)
+        print("Usuario registrado exitosamente.")
+        return True
+
+    def crear_reclamo(self, usuario, descripcion):
+        reclamo = Reclamo()
+        reclamo.id_reclamo = len(self.reclamos) + 1
+        reclamo.id_user_creador = usuario.id_usuario
+        reclamo.descrip_reclamo = descripcion
+        self.reclamos.append(reclamo)
+        return reclamo
+
+    def listar_reclamos(self, departamento=None):
+        if departamento:
+            reclamos = [r for r in self.reclamos if r.depto == departamento]
+        else:
+            reclamos = self.reclamos
+        return reclamos
+
+    def adherir_a_reclamo(self, usuario, reclamo):
+        if reclamo.estado == "Pendiente":
+            if usuario.id_usuario not in reclamo.id_adherentes:
+                reclamo.id_adherentes.append(usuario.id_usuario)
+                print("Adherido al reclamo con éxito.")
+            else:
+                print("Ya está adherido a este reclamo.")
+        else:
+            print("No se puede adherir a un reclamo que no está pendiente.")
+
+    def actualizar_estado_reclamo(self, reclamo, nuevo_estado):
+        reclamo.estado = nuevo_estado
+        print(f"Estado del reclamo actualizado a '{nuevo_estado}'.")
+
+# Ejemplo de uso del GestorDeReclamos
