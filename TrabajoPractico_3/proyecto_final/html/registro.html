@@ -1,0 +1,37 @@
+<!-- registro.html -->
+<form method="POST">
+    {{ form.hidden_tag() }}
+    <h2>Registro de Usuario</h2>
+    {{ form.nombre.label }}
+    {{ form.nombre }}
+    <!-- Otros campos del formulario -->
+    <button type="submit">Registrarse</button>
+</form>
+<!-- registro.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registro de Usuario</title>
+</head>
+<body>
+    <h1>Registro de Usuario</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.nombre.label }}
+        {{ form.nombre }}
+        {{ form.apellido.label }}
+        {{ form.apellido }}
+        {{ form.email.label }}
+        {{ form.email }}
+        {{ form.username.label }}
+        {{ form.username }}
+        {{ form.claustro.label }}
+        {{ form.claustro }}
+        {{ form.password.label }}
+        {{ form.password }}
+        {{ form.confirm.label }}
+        {{ form.confirm }}
+        <button type="submit">Registrarse</button>
+    </form>
+</body>
+</html>
