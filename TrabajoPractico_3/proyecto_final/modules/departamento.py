@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from modules.gestorDB import GestorDB
+from modules.gestorBD import GestorBD
 from modules.reclamo import Reclamo
 
 class Departamento(ABC):
@@ -11,7 +11,7 @@ class Departamento(ABC):
         return self.__reclamos_depto
     
     @abstractmethod
-    def levantar_reclamos_depto(gestordb:GestorDB):
+    def levantar_reclamos_depto(gestordb:GestorBD):
         pass
 
     @abstractmethod
@@ -44,7 +44,7 @@ class DptoTecnico(Departamento):
         """Conoce todos los reclamos (los recibe), debe mostrar estadisticas sobre el numero de reclamos"""
         pass
     
-    def levantar_reclamos_depto(gestordb:GestorDB): #quitar reclamo
+    def levantar_reclamos_depto(gestordb:GestorBD): #quitar reclamo
         
         pass
 

@@ -59,8 +59,16 @@ from modules.reclamo import Reclamo
 #         return reclamos
 class GestorDeReclamos:
     def __init__(self):
-        self.usuarios = []  # Lista para almacenar usuarios
-        self.reclamos = []  # Lista para almacenar reclamos
+        self.__usuarios = []  # Lista para almacenar usuarios
+        self.__reclamos = []  # Lista para almacenar reclamos
+    
+    @property
+    def usuarios(self):
+        return self.__usuarios
+    
+    @property
+    def reclamos(self):
+        return self.__reclamos
 
     def registrar_usuario(self, usuario):
         # Comprobar si el nombre de usuario o correo ya existen
