@@ -19,9 +19,9 @@ class TextVectorizer(BaseEstimator, TransformerMixin):
   ser usado en un pipeline de sklearn
   """
   def __init__(self):
-    self.__word2idx = {}
-    self.stop_words = set(stopwords.words('spanish'))
-    self.spanish_stemmer = SnowballStemmer('spanish')
+    self.__word2idx = {} #asignar un índice único a cada palabra en el vocabulario.
+    self.stop_words = set(stopwords.words('spanish')) # Una lista de palabras comunes en español que se utilizarán como palabras vacías (stop words) y que no se incluirán en el vocabulario.
+    self.spanish_stemmer = SnowballStemmer('spanish') #reducción de palabras a su forma raíz (stemming) en español.
 
   # Text to Vector
   def __text_to_vector(self, texto):
@@ -38,7 +38,12 @@ class TextVectorizer(BaseEstimator, TransformerMixin):
 
   def fit(self, X, y=None):
     """función que entrena el vectorizador de texto
-    para obtener el vocabulario y el diccionario word2idx
+    para obtener el vocabulario y el diccionario word2idx. Convierte el texto a minúsculas.
+Tokeniza el texto en palabras.
+Realiza el stemming de las palabras.
+Elimina palabras vacías y signos de puntuación.
+Calcula la frecuencia de cada palabra en el conjunto de datos de entrenamiento y construye un vocabulario ordenado por frecuencia.
+Asocia un índice a cada palabra en el vocabulario y almacena esta información en el diccionario self.__word2idx
     """
     X_procesado = []
     
@@ -78,7 +83,7 @@ class TextVectorizer(BaseEstimator, TransformerMixin):
 
 
 class ProcesadorArchivo():
-  """Clase que representa un procesador de archivos json"""
+  """Clase que representa un procesador de archivos json. contiene datos de entrenamiento, extrae los textos de los reclamos y las etiquetas correspondientes, y los almacena en las variables self.x y self.y."""
 
   def __init__(self, direccion,):
     
